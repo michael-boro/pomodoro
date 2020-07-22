@@ -1,38 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import './App.scss';
+import PomLogo from './PomLogo.svg';
+
+import TimeContainer from './Components/TimeContainer';
+import SetTimeContainer from './Components/SetTimeContainer';
 
 function App() {
-  const [sessionTime, setSessionTime] = useState(25);
+  const [workTime, setWorkTime] = useState(25);
   const [breakTime, setBreakTime] = useState(5);
   const [active, setActive] = useState(false);
-  const [mode, setMode] = useState('Session');
+  const [mode, setMode] = useState('Work');
   const [activeMinute, setActiveMinute] = useState(25);
   const [activeSecond, setActiveSecond] = useState(0);
 
 
   const resetTimer = () => {
-    setSessionTime(25);
+    setWorkTime(25);
     setBreakTime(5);
     setActive(false);
-    setMode('Session');
+    setMode('Work');
     setActiveMinute(25);
     setActiveSecond(0);
   }
 
-  const updateSession = (type) => {
+  const updateWork = (type) => {
     if (active) return;
 
     if (type === 'up') {
-      if (sessionTime === 60) return;
-      setSessionTime(sessionTime + 1);
-      if (mode === 'Session') {
-        setActiveMinute(sessionTime + 1);
+      if (workTime === 60) return;
+      setWorkTime(workTime + 1);
+      if (mode === 'Work') {
+        setActiveMinute(workTime + 1);
       }
     } else {
-      if (sessionTime === 1) return;
-      setSessionTime(sessionTime - 1);
-      if (mode === 'Session') {
-        setActiveMinute(sessionTime - 1);
+      if (workTime === 1) return;
+      setWorkTime(workTime - 1);
+      if (mode === 'Work') {
+        setActiveMinute(workTime - 1);
       }
     }
   }
@@ -57,13 +61,13 @@ function App() {
 
   const changeMode = () => {
     if (active) return;
-    if (mode === 'Session') {
+    if (mode === 'Work') {
       setMode('Break');
       setActiveMinute(breakTime);
       setActiveSecond(0);
     } else {
-      setMode('Session');
-      setActiveMinute(sessionTime);
+      setMode('Work');
+      setActiveMinute(workTime);
       setActiveSecond(0);
     }
   }
@@ -72,19 +76,19 @@ function App() {
 
     const timer = setInterval(() => {
 
-      if (activeMinute === 0 && activeSecond === 0 && mode === 'Session') {
+      if (activeMinute === 0 && activeSecond === 0 && mode === 'Work') {
         setMode('Break');
         setActiveMinute(breakTime);
         setActiveSecond(0);
-        console.log('session done');
+        console.log('Work done');
         const sound = document.getElementById('timerDing');
         sound.play();
         // setActive(false);
       }
 
       if (activeMinute === 0 && activeSecond === 0 && mode === 'Break') {
-        setMode('Session');
-        setActiveMinute(sessionTime);
+        setMode('Work');
+        setActiveMinute(workTime);
         setActiveSecond(0);
         const sound = document.getElementById('timerDing');
         sound.play();
@@ -113,34 +117,13 @@ function App() {
 
   return (
     <div className="App">
-      <h1>A React Pomodoro App!</h1>
-      <div id='sessionTimeContainer'>
-        <p id='session-label'>Session Timer</p>
-        <button className="plusButton" id='session-increment' onClick={() => updateSession('up')}>+</button>
-        <span className="timeLabel" id='session-length'>{sessionTime}</span>
-        <button className="minusButton" id='session-decrement' onClick={() => updateSession('down')}>-</button>
-      </div>
+      <img src={PomLogo} alt="Site Logo" />
 
-      <div id='breakTimeContainer'>
-        <p id='break-label'>Break Timer</p>
-        <button className="plusButton" id='break-increment' onClick={() => updateBreak('up')}>+</button>
-        <span className="timeLabel" id='break-length'>{breakTime}</span>
-        <button className="minusButton" id='break-decrement' onClick={() => updateBreak('down')}>-</button>
-      </div>
+      <SetTimeContainer boxId="workTimeContainer" label="Work Length" updateFunc={updateWork} time={workTime} />
 
-      <div id='timeContainer'>
-        <p id='timer-label'>Currently Active: {mode}</p>
-        <span id="time-left">{activeMinute}:{activeSecond === 0 ? '00' : activeSecond < 10 ? `0${activeSecond}` : activeSecond}</span>
-        <span id='timeStatus'>Status: {active ? 'Active' : 'Not Active'}</span>
+      <SetTimeContainer boxId="breakTimeContainer" label="Break Length" updateFunc={updateBreak} time={breakTime} />
 
-        <div id='buttonContainer'>
-          <button id="start_stop" onClick={() => setActive(active ? false : true)}>{active ? 'Pause' : 'Start'}</button>
-          <button id="reset" onClick={resetTimer}>Reset</button>
-        </div>
-
-        <button id='switch_mode' onClick={() => changeMode()}>Change Mode</button>
-        <audio id='timerDing' preload="auto" src="http://michaelboro.tech/media/timertone.mp3"></audio>
-      </div>
+      <TimeContainer mode={mode} activeSecond={activeSecond} activeMinute={activeMinute} active={active} setActive={setActive} changeMode={changeMode} resetTimer={resetTimer} />
     </div>
   );
 }

@@ -1,0 +1,129 @@
+body {
+  background-color: #F4FFF1;
+}
+
+.App {
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  max-width: 800px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  font-family: 'Roboto';
+}
+
+.App img {
+  width: 80%;
+}
+
+.timeButton {
+  margin-left: 15px;
+  cursor: pointer;
+  border: none;
+  padding: 10px 15px;
+  background: none;
+  font-size: 1.5em;
+  font-weight: 300;
+  color: #707070;
+  font-family: 'Roboto';
+}
+
+.timeCount {
+  color: #707070;
+  font-weight: 300;
+  font-size: 1.5em;
+}
+
+.timeLabel {
+  font-size: 1.7em;
+  font-weight: 300;
+  margin-bottom: 5px;
+}
+
+#timeContainer {
+  width: 100%;
+}
+
+#timer-label {
+  font-weight: 300;
+  font-size: 1.7em;
+  margin-bottom: 5px;
+}
+
+#time-left {
+  display: block;
+  font-size: 5em;
+  background: #8B8B8B;
+  width: 90%;
+  padding: 20px 0;
+  margin: 0 auto 10px auto;
+  border-radius: 50px;
+  font-family: 'Roboto';
+  font-weight: 100;
+  border: 1px solid #707070;
+  @media only screen and (min-width: 600px) {
+    width: 75%;
+  }
+  @media only screen and (min-width: 800px) {
+    width: 50%;
+  }
+}
+
+.activeTime {
+  background: #8FFFA2 !important;
+}
+
+.breakTime {
+  background: #FFFDC9 !important;
+}
+
+#timeStatus {
+  display: block;
+  font-size: 1.2em;
+  margin: 15px;
+}
+
+#start_stop {
+  justify-self: end;
+  padding: 10px;
+  background: #8FFFA2;
+  border: none;
+  width: 50%;
+  border-radius: 40px;
+  cursor: pointer;
+  span {
+    font-weight: 100;
+    font-family: 'Roboto';
+    font-size: 3em;
+  }
+  @media only screen and (min-width: 600px) {
+    width: 40%;
+  }
+  @media only screen and (min-width: 800px) {
+    width:30%;
+  }
+}
+
+#buttonContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 20px 0;
+  justify-items: center;
+}
+
+
+#buttonContainer button {
+  width: 75%;
+  font-size: 1em;
+  border: none;
+  padding: 10px;
+  border-radius: 20px;
+  font-family: 'Roboto';
+  font-weight: 300;
+  cursor: pointer;
+  @media only screen and (min-width: 600px) {
+    width: 50%;
+  }
+}
+
