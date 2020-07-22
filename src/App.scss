@@ -27,6 +27,9 @@ body {
   font-weight: 300;
   color: #707070;
   font-family: 'Roboto';
+  &:focus {
+    outline: none;
+  }
 }
 
 .timeCount {
@@ -103,6 +106,9 @@ body {
   @media only screen and (min-width: 800px) {
     width:30%;
   }
+  &:focus {
+    outline: none;
+  }
 }
 
 #buttonContainer {
@@ -124,6 +130,9 @@ body {
   cursor: pointer;
   @media only screen and (min-width: 600px) {
     width: 50%;
+  }
+  &:focus {
+    outline: none;
   }
 }
 
